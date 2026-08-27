@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./img/favicon.41582b85.ico" type="image/x-icon" />
+    <title>배달의민족 - 배달팁 무료 배민클럽</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      #container {
+        position: relative;
+        overflow-y: hidden;
+        width: 100%;
+        min-width: 600px;
+        height: 100vh;
+      }
+
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Oxygen,
+          Ubuntu,
+          Cantarell,
+          "Open Sans",
+          "Helvetica Neue",
+          sans-serif;
+        background-color: rgb(12, 239, 211);
+        -webkit-font-smoothing: antialiased;
+        overflow: hidden;
+        height: 100vh;
+      }
+
+      .nav {
+        width: 100%;
+        top: 0;
+        height: 130px;
+        padding: 0 32px;
+        position: fixed;
+        left: 50%;
+        top: 0px;
+        transform: translateX(-50%);
+        max-width: 1650px;
+        min-width: 600px;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: justify;
+        justify-content: space-around;
+        box-sizing: border-box;
+        color: var(--color-mode-text);
+        display: flex;
+        --color-mode-text: #fff;
+        --color-mode-divider: rgba(255, 255, 255, 0.3);
+        z-index: 100;
+      }
+
+      .header-inner {
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .h2 {
+        color: rgb(12, 239, 211);
+        margin: 0;
+        padding: 0;
+        display: block;
+        font-size: 48px;
+        margin-block-start: 0.83em;
+        margin-block-end: 0.83em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-weight: bold;
+      }
+
+      .h22 {
+        color: rgb(12, 239, 211);
+        margin: 0;
+        padding: 0;
+        display: block;
+        font-size: 1.8em;
+        margin-block-start: 0.83em;
+        margin-block-end: 0.83em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-weight: bold;
+      }
+
+      .nav-menu {
+        display: flex;
+        color: white;
+        font-size: 30px;
+        gap: 15px;
+      }
+
+      .logo {
+        max-width: 190px;
+        height: auto;
+        width: 28%;
+        position: relative;
+        left: 20px;
+      }
+
+      .logo img {
+        width: 100%;
+        height: auto;
+        flex: 1;
+        display: block;
+      }
+
+      .nav-menu a {
+        cursor: pointer;
+        color: var(--color-mode-text);
+        background-color: transparent;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 140%;
+        display: inline-block;
+        text-decoration: none;
+        position: relative;
+        transition: transform 0.25s ease;
+      }
+
+      .nav-menu a:hover {
+        transform: translateY(-5px);
+      }
+
+      .nav-menu a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 120%;
+        height: 2px;
+        background-color: #ffffff;
+        opacity: 0;
+        transform: translateY(0);
+        transition:
+          transform 0.25s ease,
+          opacity 0.25s ease;
+      }
+
+      .nav-menu a:not(:last-child)::after {
+        color: #cccccc;
+        font-weight: 300;
+      }
+
+      .nav-menu a:hover::after {
+        opacity: 1;
+        transform: translateY(5px);
+      }
+
+      a[target="_blank"]::after {
+        content: "";
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-left: 4px;
+        background-image: url("외부링크_아이콘.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+
+      .full-section {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      .full-section::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      .nav-menu:not(:first-child):not(:last-child) {
+        border-right: 1px solid rgba(255, 255, 255, 0.4);
+        padding-right: 30px;
+      }
+
+      .nav-menu svg {
+        position: relative;
+        right: 13px;
+      }
+      .full-section > img:not(.overlay-image) {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+
+      .overlay-image {
+        position: absolute;
+        top: 200px;
+        left: 100px;
+        width: 900px;
+        height: auto;
+        z-index: 3;
+      }
+
+      .full-section .h2 {
+        position: absolute;
+        z-index: 4;
+        display: inline-block;
+        top: 550px;
+        left: 100px;
+        font-size: 75px;
+      }
+
+      .full-section .h22 {
+        position: absolute;
+        z-index: 4;
+        display: inline-block;
+        top: 650px;
+        left: 100px;
+        font-size: 75px;
+      }
+
+      .down {
+        width: 600px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+
+      .btn-image {
+        position: absolute;
+        z-index: 6;
+        top: 860px;
+        left: 100px;
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 15px 25px;
+        width: 225px;
+      }
+
+      .btn-image2 {
+        position: absolute;
+        z-index: 6;
+        top: 860px;
+        left: 335px;
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 15px 25px;
+        width: 225px;
+      }
+
+      .btn-image3 {
+        position: absolute;
+        z-index: 6;
+        top: 860px;
+        left: 575px;
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 38px 38px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn-image4 {
+        position: absolute;
+        z-index: 6;
+        top: 872px;
+        left: 592px;
+        background-color: #ffffff;
+        border-radius: 15px;
+        padding: 0px 0px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .arrow-icon {
+        position: absolute;
+        z-index: 10;
+        top: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+        fill: #ffffff;
+        animation: arrow 2s infinite ease-in-out;
+      }
+
+      @keyframes arrow {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0x);
+        }
+        50% {
+          transform: translateX(-50%) translateY(-20px);
+        }
+      }
+
+      .sidebar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 180px;
+        top: 50%;
+        z-index: 7;
+      }
+
+      .sidebar-list {
+        position: absolute;
+        right: 5%;
+        width: 30px;
+        height: 100%;
+        align-items: end;
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        z-index: 8;
+      }
+
+      .sidebar-list-icon1 {
+        display: flex;
+        width: 25px;
+        height: 5px;
+        background-color: #000;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .sidebar-list-icon2 {
+        display: flex;
+        width: 15px;
+        height: 4px;
+        background-color: rgba(0, 0, 0, 0.3);
+        align-items: center;
+        justify-content: center;
+      }
+
+      .sidebar-text-menu {
+        position: absolute;
+        right: 3%;
+        top: 50%;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        transform: translateY(-50%) translateX(20px);
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+        opacity: 0;
+        height: 550px;
+        width: 220px;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: space-evenly;
+        z-index: 10;
+        gap: 15px;
+        padding: 20px 55px;
+        color: #7e8082;
+        font-weight: 400;
+        cursor: pointer;
+        font-size: 17px;
+      }
+
+      .select {
+        color: #0cefd3;
+        font-weight: 700;
+        font-size: 19px;
+      }
+
+      .sidebar-text-menu-icon {
+        position: relative;
+        right: 20%;
+        display: inline-flex;
+        width: 150px;
+        height: 30px;
+        justify-content: space-evenly;
+        font-weight: 900;
+        align-items: center;
+      }
+
+      .sidebar-text-menu .sidebar-text-menu-icon:hover {
+        color: #ccc;
+        font-weight: 900;
+      }
+
+      .sidebar-list:hover ~ .sidebar-text-menu,
+      .sidebar-text-menu:hover {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0px);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <nav class="nav">
+        <div class="logo nav-menu">
+          <img src="img/logo@2x.50e61b82.png" alt="" />
+        </div>
+        <div class="nav-menu"></div>
+        <div class="nav-menu"></div>
+        <div class="nav-menu"></div>
+        <div class="nav-menu"></div>
+        <div class="nav-menu"></div>
+        <div class="nav-menu"></div>
+        <div class="nav-menu"></div>
+        <div class="nav-menu"></div>
+        <div class="nav-menu"></div>
+        <div class="nav-menu"></div>
+        <div class="nav-menu">
+          <a href="#"><span class="text">우아한형제들</span></a
+          ><svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+            ></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </div>
+        <div class="nav-menu">
+          <a href="#"><span class="text">라이더 모집</span></a
+          ><svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            gpa
+          >
+            <path
+              d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+            ></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </div>
+        <div class="nav-menu">
+          <a href="#"><span class="text">For foreigners</span></a
+          ><svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+            ></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </div>
+      </nav>
+      <section>
+        <section class="full-section">
+          <div class="sidebar">
+            <li class="sidebar-list">
+              <ul class="sidebar-list-icon1"></ul>
+              <ul class="sidebar-list-icon2"></ul>
+              <ul class="sidebar-list-icon2"></ul>
+              <ul class="sidebar-list-icon2"></ul>
+              <ul class="sidebar-list-icon2"></ul>
+              <ul class="sidebar-list-icon2"></ul>
+              <ul class="sidebar-list-icon2"></ul>
+              <ul class="sidebar-list-icon2"></ul>
+            </li>
+            <li class="sidebar-text-menu">
+              <ul class="sidebar-text-menu-icon select">
+                앱 다운로드
+              </ul>
+              <ul class="sidebar-text-menu-icon">
+                배달의민족
+              </ul>
+              <ul class="sidebar-text-menu-icon">
+                음식배달
+              </ul>
+              <ul class="sidebar-text-menu-icon">
+                배민클럽
+              </ul>
+              <ul class="sidebar-text-menu-icon">
+                B마트
+              </ul>
+              <ul class="sidebar-text-menu-icon">
+                장보기・쇼핑
+              </ul>
+              <ul class="sidebar-text-menu-icon">
+                선물하기
+              </ul>
+              <ul class="sidebar-text-menu-icon">
+                전국특가
+              </ul>
+              <ul class="sidebar-text-menu-icon">
+                배민페이
+              </ul>
+            </li>
+          </div>
+          <img
+            src="img/main_text_02@3x.90468cc4.png"
+            alt="메인텍스트"
+            class="overlay-image"
+          />
+
+          <img src="img/main_02.0f441eee.jpeg" alt="메인 이미지" />
+          <p class="h2">한그릇,</p>
+          <p class="h22">지금 배민됩니다</p>
+        </section>
+        <section class="down">
+          <button class="btn">
+            <img
+              src="img/appstore.c517407b.png"
+              alt="앱스토어"
+              class="btn-image"
+            />
+          </button>
+          <button class="btn">
+            <img
+              src="img/playstore.4aee04e5.png"
+              alt="플레이스토어"
+              class="btn-image2"
+            />
+          </button>
+          <button class="btn">
+            <svg
+              width="50"
+              height="50"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="btn-image3"
+            >
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+              <line x1="14" y1="14" x2="21" y2="14"></line>
+              <line x1="14" y1="21" x2="21" y2="21"></line>
+              <line x1="17.5" y1="14" x2="17.5" y2="21"></line>
+            </svg>
+          </button>
+          <button class="btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="50"
+              height="50"
+              viewBox="0 0 17 17"
+              fill="none"
+              class="btn-image4"
+            >
+              <path
+                d="M4.74967 5.68888C4.74967 5.34371 5.0295 5.06388 5.37467 5.06388C5.71985 5.06388 5.99967 5.34371 5.99967 5.68888C5.99967 6.03406 5.71985 6.31388 5.37467 6.31388C5.0295 6.31388 4.74967 6.03406 4.74967 5.68888Z"
+                fill="#181A1C"
+              ></path>
+              <path
+                d="M2.83301 4.81388C2.83301 3.89341 3.5792 3.14722 4.49967 3.14722H6.24967C7.17015 3.14722 7.91634 3.89341 7.91634 4.81388V6.56388C7.91634 7.48436 7.17015 8.23055 6.24967 8.23055H4.49967C3.5792 8.23055 2.83301 7.48436 2.83301 6.56388V4.81388ZM4.49967 4.48055C4.31558 4.48055 4.16634 4.62979 4.16634 4.81388V6.56388C4.16634 6.74798 4.31558 6.89722 4.49967 6.89722H6.24967C6.43377 6.89722 6.58301 6.74798 6.58301 6.56388V4.81388C6.58301 4.62979 6.43377 4.48055 6.24967 4.48055H4.49967Z"
+                fill="#181A1C"
+              ></path>
+              <path
+                d="M5.37467 10.6889C5.0295 10.6889 4.74967 10.9687 4.74967 11.3139C4.74967 11.6591 5.0295 11.9389 5.37467 11.9389C5.71985 11.9389 5.99967 11.6591 5.99967 11.3139C5.99967 10.9687 5.71985 10.6889 5.37467 10.6889Z"
+                fill="#181A1C"
+              ></path>
+              <path
+                d="M2.83301 10.4389C2.83301 9.51841 3.5792 8.77222 4.49967 8.77222H6.24967C7.17015 8.77222 7.91634 9.51841 7.91634 10.4389V12.1889C7.91634 13.1094 7.17015 13.8556 6.24967 13.8556H4.49967C3.5792 13.8556 2.83301 13.1094 2.83301 12.1889V10.4389ZM4.49967 10.1056C4.31558 10.1056 4.16634 10.2548 4.16634 10.4389V12.1889C4.16634 12.373 4.31558 12.5222 4.49967 12.5222H6.24967C6.43377 12.5222 6.58301 12.373 6.58301 12.1889V10.4389C6.58301 10.2548 6.43377 10.1056 6.24967 10.1056H4.49967Z"
+                fill="#181A1C"
+              ></path>
+              <path
+                d="M10.9997 5.06388C11.3449 5.06388 11.6247 5.34371 11.6247 5.68888C11.6247 6.03406 11.3449 6.31388 10.9997 6.31388C10.6545 6.31388 10.3747 6.03406 10.3747 5.68888C10.3747 5.34371 10.6545 5.06388 10.9997 5.06388Z"
+                fill="#181A1C"
+              ></path>
+              <path
+                d="M10.1247 3.14722H11.8747C12.7951 3.14722 13.5413 3.89341 13.5413 4.81388V6.56388C13.5413 7.48436 12.7951 8.23055 11.8747 8.23055H10.1247C9.2042 8.23055 8.45801 7.48436 8.45801 6.56388V4.81388C8.45801 3.89341 9.2042 3.14722 10.1247 3.14722ZM9.79134 4.81388V6.56388C9.79134 6.74798 9.94058 6.89722 10.1247 6.89722H11.8747C12.0588 6.89722 12.208 6.74798 12.208 6.56388V4.81388C12.208 4.62979 12.0588 4.48055 11.8747 4.48055H10.1247C9.94058 4.48055 9.79134 4.62979 9.79134 4.81388Z"
+                fill="#181A1C"
+              ></path>
+              <path
+                d="M8.49967 13.1889C8.49967 12.8437 8.7795 12.5639 9.12467 12.5639C9.46985 12.5639 9.74967 12.8437 9.74967 13.1889C9.74967 13.5341 9.46985 13.8139 9.12467 13.8139C8.7795 13.8139 8.49967 13.5341 8.49967 13.1889Z"
+                fill="#181A1C"
+              ></path>
+              <path
+                d="M9.12467 8.77222H12.8747C13.2429 8.77222 13.5413 9.07069 13.5413 9.43888V13.1889C13.5413 13.5571 13.2429 13.8556 12.8747 13.8556C12.5065 13.8556 12.208 13.5571 12.208 13.1889V11.9389H9.12467C8.7795 11.9389 8.49967 11.6591 8.49967 11.3139C8.49967 10.9687 8.7795 10.6889 9.12467 10.6889H12.208V10.1056H9.12467C8.75648 10.1056 8.45801 9.80707 8.45801 9.43888C8.45801 9.07069 8.75648 8.77222 9.12467 8.77222Z"
+                fill="#181A1C"
+              ></path>
+              <path
+                d="M10.3747 13.1889C10.3747 12.8437 10.6545 12.5639 10.9997 12.5639C11.3449 12.5639 11.6247 12.8437 11.6247 13.1889C11.6247 13.5341 11.3449 13.8139 10.9997 13.8139C10.6545 13.8139 10.3747 13.5341 10.3747 13.1889Z"
+                fill="#181A1C"
+              ></path>
+            </svg>
+          </button>
+        </section>
+      </section>
+      <svg
+        class="arrow-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="75"
+        height="75"
+        viewBox="0 0 61 61"
+        fill="none"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M11.4753 20.4582C12.4069 19.4392 13.9882 19.3684 15.0073 20.3001L30.8203 34.7577L46.6334 20.3001C47.6524 19.3684 49.2337 19.4392 50.1654 20.4582C51.0971 21.4772 51.0263 23.0586 50.0073 23.9902L32.5073 39.9902C31.5521 40.8635 30.0885 40.8635 29.1334 39.9902L11.6334 23.9902C10.6144 23.0586 10.5436 21.4772 11.4753 20.4582Z"
+        ></path>
+      </svg>
+    </div>
+  </body>
+</html>
